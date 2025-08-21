@@ -8,7 +8,7 @@
 #######################################   Project Verions   ########################################
 ####################################################################################################
 project-group-id = "nz.adjmunro"
-project-artifact-id = "inline"
+project-artifact-id = "utils"
 project-version-major = "0"
 project-version-minor = "3"
 project-version-patch = "0"

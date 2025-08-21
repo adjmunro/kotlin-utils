@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe

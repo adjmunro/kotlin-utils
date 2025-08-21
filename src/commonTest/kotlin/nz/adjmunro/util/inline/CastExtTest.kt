@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow

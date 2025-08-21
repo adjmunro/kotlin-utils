@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 /**
  * Syntax-sugar equivalent to a [with] block that only executes if the [receiver] is not `null`.

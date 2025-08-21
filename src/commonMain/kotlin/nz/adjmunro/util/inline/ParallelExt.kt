@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async

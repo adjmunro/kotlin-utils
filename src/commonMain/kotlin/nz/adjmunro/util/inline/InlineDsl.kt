@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 /**
  * Annotation to mark functions and types as members of the Inline DSL library.

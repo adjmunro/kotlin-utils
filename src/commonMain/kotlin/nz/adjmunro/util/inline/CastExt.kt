@@ -1,4 +1,4 @@
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

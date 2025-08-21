@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE", "unused")
 
-package nz.adjmunro.inline
+package nz.adjmunro.util.inline
 
 /**
  * Syntax-sugar for a lambda that returns `it`.

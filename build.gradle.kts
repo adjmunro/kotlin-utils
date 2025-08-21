@@ -91,7 +91,7 @@ kotlin {
         }
         androidMain {
             android {
-                namespace = "nz.adjmunro.inline"
+                namespace = "nz.adjmunro.utils"
                 compileSdk = version { project.android.compileSdk }.toInt()
                 defaultConfig.minSdk = version { project.android.minSdk }.toInt()
             }
@@ -133,7 +133,7 @@ tasks.register<Jar>("dokkaJar") {
 
 publishing {
     publications {
-        register<MavenPublication>(name = "inline-maven-artifact") {
+        register<MavenPublication>(name = "utils-maven-artifact") {
             from(components["kotlin"])
             groupId = version { project.group.id }
             artifactId = version { project.artifact.id }
@@ -150,7 +150,7 @@ publishing {
         // Publishing to GitHub Packages
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/adjmunro/project-inline")
+            url = uri("https://maven.pkg.github.com/adjmunro/kotlin-utils")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
