@@ -9,19 +9,32 @@ plugins {
     jacoco
 }
 
-private val Project.semver: String by lazy {
-    val major = version { project.version.major }
-    val minor = version { project.version.minor }
-    val patch = version { project.version.patch }
-    return@lazy "$major.$minor.$patch"
+data class ProjectInfo(
+    val groupId: String = libs.versions.project.group.id.get(),
+    val artifactId: String = libs.versions.project.artifact.id.get(),
+    val moduleId: String? = null,
+    val major: String = libs.versions.project.version.major.get(),
+    val minor: String = libs.versions.project.version.minor.get(),
+    val patch: String = libs.versions.project.version.patch.get(),
+    val javaToolchain: String = libs.versions.java.toolchain.get(),
+    val javaBytecode: String = libs.versions.java.bytecode.get(),
+    val androidCompileSdk: Int = libs.versions.project.android.compileSdk.get().toInt(),
+    val androidMinSdk: Int = libs.versions.project.android.minSdk.get().toInt(),
+) {
+    val androidNamespace: String by lazy {
+        moduleId?.let { "${groupId}.${artifactId}.$it" } ?: "${groupId}.${artifactId}"
+    }
+    val moduleArtifactId: String by lazy {
+        moduleId?.let { "${artifactId}-$it" } ?: artifactId
+    }
+    val semanticVersion: String by lazy {
+        "$major.$minor.$patch"
+    }
 }
 
-private fun Project.version(selector: VersionAccessors.() -> Provider<String>): String {
-    return this@version.libs.versions.selector().get()
-}
-
-group = version { project.group.id }
-version = semver
+val info = ProjectInfo()
+group = info.groupId
+version = info.semanticVersion
 
 tasks.wrapper {
     gradleVersion = "latest"
@@ -35,9 +48,7 @@ kotlin {
     withSourcesJar(publish = true)
 
     // JDK version used by compiler & tooling.
-    val javaToolchain = version { java.toolchain }
-    val javaBytecode = version { java.bytecode }
-    jvmToolchain(jdkVersion = javaToolchain.toInt())
+    jvmToolchain(jdkVersion = info.javaToolchain.toInt())
 
     compilerOptions {
         // Free compiler args
@@ -58,11 +69,11 @@ kotlin {
         java {
             compilerOptions {
                 // Target version of the generated JVM bytecode.
-                jvmTarget = JvmTarget.fromTarget(target = javaBytecode)
+                jvmTarget = JvmTarget.fromTarget(target = info.javaBytecode)
             }
 
-            sourceCompatibility = JavaVersion.toVersion(javaToolchain)
-            targetCompatibility = JavaVersion.toVersion(javaBytecode)
+            sourceCompatibility = JavaVersion.toVersion(info.javaToolchain)
+            targetCompatibility = JavaVersion.toVersion(info.javaBytecode)
         }
     }
     androidTarget {
@@ -71,14 +82,14 @@ kotlin {
 
         android {
             compilerOptions {
-                jvmTarget = JvmTarget.fromTarget(target = javaBytecode)
+                jvmTarget = JvmTarget.fromTarget(target = info.javaBytecode)
             }
             compileOptions {
-                sourceCompatibility = JavaVersion.toVersion(javaToolchain)
-                targetCompatibility = JavaVersion.toVersion(javaBytecode)
+                sourceCompatibility = JavaVersion.toVersion(info.javaToolchain)
+                targetCompatibility = JavaVersion.toVersion(info.javaBytecode)
             }
         }
-        compilerOptions.jvmTarget = JvmTarget.fromTarget(target = javaBytecode)
+        compilerOptions.jvmTarget = JvmTarget.fromTarget(target = info.javaBytecode)
     }
 
     sourceSets {
@@ -91,10 +102,16 @@ kotlin {
         }
         androidMain {
             android {
-                namespace = "nz.adjmunro.utils"
-                compileSdk = version { project.android.compileSdk }.toInt()
-                defaultConfig.minSdk = version { project.android.minSdk }.toInt()
+                namespace = info.androidNamespace
+                compileSdk = info.androidCompileSdk
+                defaultConfig.minSdk = info.androidMinSdk
             }
+            dependencies {
+                compileOnly(libs.bundles.androidMain)
+            }
+        }
+        jvmMain.dependencies {
+            compileOnly("org.slf4j:slf4j-api:2.0.9")
         }
         jvmTest.dependencies {
             implementation(libs.junit5)
@@ -133,11 +150,11 @@ tasks.register<Jar>("dokkaJar") {
 
 publishing {
     publications {
-        register<MavenPublication>(name = "utils-maven-artifact") {
+        register<MavenPublication>(name = "${info.moduleArtifactId}-maven-artifact") {
             from(components["kotlin"])
-            groupId = version { project.group.id }
-            artifactId = version { project.artifact.id }
-            version = semver
+            groupId = info.groupId
+            artifactId = info.moduleArtifactId
+            version = info.semanticVersion
 
             // Include Dokka-generated Javadoc in the publication.
             artifact(tasks.named("dokkaJar"))
