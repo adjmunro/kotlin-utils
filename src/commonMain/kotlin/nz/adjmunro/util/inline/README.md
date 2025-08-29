@@ -1,4 +1,4 @@
-# Kotlin Inline
+# Inline Lambda Defaults & Function Chains
 > *This was probably a bad idea, but damn if it isn't kinda useful.*
 
 Specifically, this includes:
@@ -8,6 +8,9 @@ Specifically, this includes:
   <br><sub>*Doing the little dance with `(ChainUntilNow as? Y)?.` is so awkward everytime >.> <br>You think I plan my brackets for casting ahead of time??*</sub>
 - Null-handling context runner and function chain extensions ([`NullExt.kt`](https://github.com/adjmunro/kotlin-utils/blob/main/src/main/kotlin/nz/adjmunro/util/inline/NullExt.kt))
   <br><sub>No longer do you have to break the chain with `?:`</sub>
+
+## Co-Dependencies
+- None.
 
 ## Why?
 Originally inspired by the [identity](https://github.com/arrow-kt/arrow/blob/main/arrow-libs/core/arrow-core/src/commonMain/kotlin/arrow/core/predef.kt) function in ArrowKt... 
