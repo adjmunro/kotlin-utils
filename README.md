@@ -5,3 +5,4 @@
 - [Inline Lambda Defaults & Function Chains](https://github.com/adjmunro/kotlin-utils/blob/main/src/commonMain/kotlin/nz/adjmunro/util/inline/README.md)
 - [Given-When-Then Test Structures](https://github.com/adjmunro/kotlin-utils/blob/main/src/test/commonMain/kotlin/nz/adjmunro/util/test/bdd/README.md)
 - [Dispatcher](https://github.com/adjmunro/kotlin-utils/blob/main/src/commonMain/kotlin/nz/adjmunro/util/dispatchers/README.md)
+- [Logging](https://github.com/adjmunro/kotlin-utils/blob/main/src/commonMain/kotlin/nz/adjmunro/util/log/README.md)
