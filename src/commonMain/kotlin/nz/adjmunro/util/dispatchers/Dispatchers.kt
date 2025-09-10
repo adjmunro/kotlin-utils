@@ -2,7 +2,6 @@ package nz.adjmunro.util.dispatchers
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.SupervisorJob
 
 /** A typealias for [kotlinx.coroutines.Dispatchers] to avoid name clashes. */
@@ -162,7 +161,7 @@ public interface Dispatchers {
          * 1. Your operation can be scoped to either `viewModelScope` or `lifecycleScope`
          * *(which is almost always the case!)*, to ensure it is cancelled with its lifecycle owner.
          * 2. Your operation should be locally cancellable. In this case, prefer a local property
-         * assigned to [nz.adjmunro.util.concurrent.localScope].
+         * assigned to [localScope].
          * 3. Your operation *must* outlive the application. Use `WorkManager` for that.
          */
         @InjectDispatchersDsl
