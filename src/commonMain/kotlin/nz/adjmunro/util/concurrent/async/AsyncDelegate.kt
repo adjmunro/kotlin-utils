@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import nz.adjmunro.util.dispatchers.Dispatchers
-import nz.adjmunro.util.concurrent.FlowExt.resultOfFirst
 import nz.adjmunro.util.concurrent.async.AsyncDelegate.Companion.await
 import nz.adjmunro.util.concurrent.async.AsyncDelegate.Companion.awaitFirst
 import nz.adjmunro.util.concurrent.async.AsyncDelegate.Companion.awaitOrDefault
 import nz.adjmunro.util.concurrent.async.AsyncDelegate.Companion.awaitOrThrow
+import nz.adjmunro.util.dispatchers.flow.firstAsResult
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.properties.ReadOnlyProperty
@@ -142,7 +142,7 @@ public class AsyncDelegate<out T> private constructor(
             start = start,
             asyncContext = asyncOn,
             awaitContext = awaitOn,
-            block = { block().resultOfFirst() },
+            block = { block().firstAsResult() },
         )
     }
 

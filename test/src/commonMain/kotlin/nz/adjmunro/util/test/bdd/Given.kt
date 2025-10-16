@@ -38,7 +38,7 @@ public value class Given<Fixture>(public val fixture: Fixture) {
      * @return A [When][nz.adjmunro.util.test.bdd.When] instance containing the [fixture][nz.adjmunro.util.test.bdd.When.fixture] and [result][nz.adjmunro.util.test.bdd.When.result].
      */
     @BehaviourDrivenDevelopmentDsl
-    public inline fun <Result> When(
+    public inline infix fun <Result> When(
         block: Given<Fixture>.() -> Result
     ): When<Fixture, Result> {
         contract {
@@ -59,7 +59,7 @@ public value class Given<Fixture>(public val fixture: Fixture) {
      * @return The receiver [Given] instance for further chaining.
      */
     @BehaviourDrivenDevelopmentDsl
-    public inline fun Then(
+    public inline infix fun Then(
         block: Given<Fixture>.() -> Unit
     ): Given<Fixture> {
         contract {

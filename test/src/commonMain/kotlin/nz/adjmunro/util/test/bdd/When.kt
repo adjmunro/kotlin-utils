@@ -37,7 +37,7 @@ public data class When<Fixture, Result>(
      */
     @Suppress("NotConstructor")
     @BehaviourDrivenDevelopmentDsl
-    public inline fun <R> When(
+    public inline infix fun <R> When(
         block: Given<Fixture>.() -> R
     ): When<Fixture, R> {
         contract {
@@ -58,7 +58,7 @@ public data class When<Fixture, Result>(
      * @return The receiver [When] instance for further chaining.
      */
     @BehaviourDrivenDevelopmentDsl
-    public inline fun Then(
+    public inline infix fun Then(
         block: When<Fixture, Result>.() -> Unit
     ): When<Fixture, Result> {
         contract {

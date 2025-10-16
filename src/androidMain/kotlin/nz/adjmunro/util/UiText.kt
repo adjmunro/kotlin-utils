@@ -4,10 +4,6 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
-import nz.adjmunro.util.UiText.Companion.asString
-import nz.adjmunro.util.UiText.Companion.asUiText
-import nz.adjmunro.util.view.androidContext
 import java.util.stream.IntStream
 
 /**
@@ -84,10 +80,10 @@ public sealed interface UiText { // TODO rename DeferredString?
     }
 }
 
-private class TestFragment: Fragment() {
-    init {
-        val text = 0.asUiText
-        androidContext { text.asString }
-        requireContext().apply { text.asString }
-    }
-}
+//private class TestFragment: Fragment() {
+//    init {
+//        val text = 0.asUiText
+//        androidContext { text.asString }
+//        requireContext().apply { text.asString }
+//    }
+//}

@@ -75,8 +75,8 @@ public object LifecycleExt {
     }
 }
 
-private class F: Fragment() {
-    val x = flowOf(1).collectIn(lifecycleScope) {
-        println(it)
-    }
-}
+//private class F: Fragment() {
+//    val x = flowOf(1).collectIn(lifecycleScope) {
+//        println(it)
+//    }
+//}
