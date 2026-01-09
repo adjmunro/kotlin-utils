@@ -73,10 +73,10 @@ sourceSets {
     getting { kotlin.srcDirs("src/test/kotlin") }
 }
 
-tasks.wrapper {
-    gradleVersion = "latest"
-    distributionType = Wrapper.DistributionType.ALL
-}
+//tasks.wrapper {
+//    gradleVersion = "latest"
+//    distributionType = Wrapper.DistributionType.ALL
+//}
 
 tasks.test {
     useJUnitPlatform()
@@ -143,6 +143,6 @@ publishing {
 
 dependencies {
     implementation(platform(libs.kotlin.bom))
-    implementation(libs.bundles.core)
-    testImplementation(libs.bundles.test)
+    implementation(libs.bundles.common)
+    testImplementation(libs.bundles.common.test)
 }

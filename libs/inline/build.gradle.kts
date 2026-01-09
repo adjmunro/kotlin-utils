@@ -35,9 +35,9 @@ val info = ProjectInfo(artifactId = "utils")
 group = info.groupId
 version = info.semanticVersion
 
-tasks.wrapper {
-    gradleVersion = "latest"
-}
+//tasks.wrapper {
+//    gradleVersion = "latest"
+//}
 
 kotlin {
     // Require explicit visibility & return types.

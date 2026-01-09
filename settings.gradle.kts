@@ -1,4 +1,15 @@
-rootProject.name = "utils"
+rootProject.name = "kotlin-utils"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+arrayOf(
+    "outcome",
+    "inline",
+    "test",
+).forEach { name: String ->
+    include(":$name")
+    project(":$name").projectDir = file(path = "libs/$name")
+}
 
 fun getProperty(gradlePropertiesName: String, systemEnvName: String, instructions: String): String {
     val result = providers.gradleProperty(gradlePropertiesName).orNull
@@ -14,7 +25,6 @@ fun getProperty(gradlePropertiesName: String, systemEnvName: String, instruction
         """.trimIndent()
     }
 }
-
 
 pluginManagement {
     /**
@@ -36,6 +46,7 @@ pluginManagement {
 
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 
     /**
      * The `dependencyResolutionManagement.repositories` block is where you configure the source
@@ -68,9 +79,4 @@ dependencyResolutionManagement {
             }
         }
     }
-
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":test")
