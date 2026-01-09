@@ -8,12 +8,12 @@
 #######################################   Project Verions   ########################################
 ####################################################################################################
 project-group-id = "nz.adjmunro"
-project-artifact-id = "inline"
+project-artifact-id = "utils"
 project-version-major = "0"
 project-version-minor = "3"
 project-version-patch = "0"
 project-android-compileSdk = "36"  # Enable access to newer APIs (can be higher than targetSdk).
-project-android-minSdk = "0"       # Minimum supported Android version that the app can be installed on.
+project-android-minSdk = "1"       # Minimum supported Android version that the app can be installed on.
 
 ####################################################################################################
 #####################################   Language & Compiler   ######################################
@@ -31,11 +31,20 @@ kotlin-language = "2.2.10"
 ####################################################################################################
 ########################################   App Libraries   #########################################
 ####################################################################################################
-android-gradle-plugin = "8.12.1"
+android-gradle-plugin = "8.12.2"
+androidx-annotation = "1.9.1"
+androidx-core = "1.17.0"
+androidx-viewbinding = "8.12.2"
 dokka = "2.0.0"
+jetbrains-androidx-lifecycle = "2.9.2"
 jetbrains-coroutines = "1.10.2"
+junit4 = "4.13.2"
 junit5 = "5.13.4"
-kotest = "6.0.0"
+koin = "4.1.0"
+kotest = "6.0.1"
+mockk = "1.14.5"
+slf4j = "2.0.17"
+timber = "5.0.1"
 
 ####################################################################################################
 ####                                                                                             ###
@@ -53,14 +62,26 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 ####                                                                                             ###
 ####################################################################################################
 [libraries]
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidx-annotation" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core" }
+androidx-viewbinding = { group = "androidx.databinding", name = "viewbinding", version.ref = "androidx-viewbinding" }
+jetbrains-multiplatform-lifecycle-runtime = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime", version.ref = "jetbrains-androidx-lifecycle" }
+jetbrains-multiplatform-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "jetbrains-androidx-lifecycle" }
 jetbrains-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "jetbrains-coroutines" }
 jetbrains-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "jetbrains-coroutines" }
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 junit5 = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit5" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
 kotest-assertions = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "kotest" }
 kotlin-bom = { group = "org.jetbrains.kotlin", name = "kotlin-bom", version.ref = "kotlin-language" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin-language" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 
 ####################################################################################################
 ####                                                                                             ###
@@ -68,13 +89,18 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.re
 ####                                                                                             ###
 ####################################################################################################
 [bundles]
-core = [
-    "jetbrains-coroutines-core",
+common = [
     "kotlin-stdlib",
+    "jetbrains-coroutines-core",
 ]
-test = [
+common-test = [
     "jetbrains-coroutines-test",
+    "koin-test",
     "kotest-assertions",
     "kotest-property",
     "kotlin-test",
+]
+jvm-test = [
+    "junit5",
+    "mockk",
 ]
