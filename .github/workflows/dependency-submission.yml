@@ -6,12 +6,18 @@ on:
 
 permissions:
   contents: write
+  packages: read   # ⬅️ Required for Gradle to fetch from GitHub Packages
 
 jobs:
   dependency-submission:
     runs-on: ubuntu-latest
+
+    env: # Expose secrets to Gradle
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Java
         uses: ./.github/actions/setup-java
