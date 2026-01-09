@@ -1,4 +1,4 @@
-rootProject.name = "kotlin-utils"
+rootProject.name = "utils"
 
 fun getProperty(gradlePropertiesName: String, systemEnvName: String, instructions: String): String {
     val result = providers.gradleProperty(gradlePropertiesName).orNull
@@ -15,9 +15,10 @@ fun getProperty(gradlePropertiesName: String, systemEnvName: String, instruction
     }
 }
 
+
 pluginManagement {
     /**
-     * The pluginManagement.repositories block configures the repositories that Gradle uses
+     * The `pluginManagement.repositories` block configures the repositories that Gradle uses
      * to search for and download the Gradle plugins and their transitive dependencies.
      * You can also use local repositories or define your own remote repositories.
      */
@@ -37,7 +38,7 @@ pluginManagement {
 dependencyResolutionManagement {
 
     /**
-     * The dependencyResolutionManagement.repositories block is where you configure the source
+     * The `dependencyResolutionManagement.repositories` block is where you configure the source
      * repositories of the dependencies used by all modules in your project. However, you should
      * configure module-specific repositories in the build.gradle.kts files of the respective modules.
      */
@@ -70,3 +71,6 @@ dependencyResolutionManagement {
 
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+include(":test")

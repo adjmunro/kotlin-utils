@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias { libs.plugins.kotlin.multiplatform }
-    alias { libs.plugins.android.library } apply true
+    alias { libs.plugins.android.library }
     alias { libs.plugins.dokka }
     `maven-publish`
     jacoco
@@ -31,13 +31,9 @@ data class ProjectInfo(
     }
 }
 
-val info = ProjectInfo()
+val info = ProjectInfo(moduleId = "test")
 group = info.groupId
 version = info.semanticVersion
-
-tasks.wrapper {
-    gradleVersion = "latest"
-}
 
 kotlin {
     // Require explicit visibility & return types.
@@ -54,8 +50,6 @@ kotlin {
         freeCompilerArgs.addAll(
             "-opt-in=kotlin.experimental.ExperimentalTypeInference",
             "-opt-in=kotlin.contracts.ExperimentalContracts",
-            "-Xcontext-parameters",
-            "-Xannotation-default-target=param-property"
         )
 
         // Enable extra K2 warnings.
@@ -99,13 +93,14 @@ kotlin {
                 libs.kotlin.bom
             })
             implementation(dependencyNotation = libs.bundles.common)
+            api(dependencyNotation = projects.utils)
 
-            compileOnly(dependencyNotation = libs.koin.core)
-            compileOnly(dependencyNotation = libs.jetbrains.multiplatform.lifecycle.viewmodel)
+            compileOnly(dependencyNotation = libs.jetbrains.coroutines.test)
+            compileOnly(dependencyNotation = libs.koin.test)
+            compileOnly(dependencyNotation = libs.kotlin.test)
         }
         commonTest.dependencies {
-            implementation(dependencyNotation = libs.bundles.common.test)
-            implementation(dependencyNotation = projects.test)
+            implementation(libs.bundles.common.test)
         }
         androidMain {
             android {
@@ -113,25 +108,25 @@ kotlin {
                 compileSdk = info.androidCompileSdk
                 defaultConfig.minSdk = info.androidMinSdk
             }
+
             dependencies {
-                compileOnly(dependencyNotation = libs.androidx.annotation)
-                compileOnly(dependencyNotation = libs.androidx.core.ktx)
                 compileOnly(dependencyNotation = libs.androidx.viewbinding)
+                compileOnly(dependencyNotation = libs.junit4)
+                compileOnly(dependencyNotation = libs.junit5)
                 compileOnly(dependencyNotation = libs.koin.android)
+                compileOnly(dependencyNotation = libs.koin.test)
+                compileOnly(dependencyNotation = libs.mockk)
                 compileOnly(dependencyNotation = libs.timber)
             }
         }
-        jvmMain.dependencies {
-            compileOnly(dependencyNotation = libs.slf4j)
-        }
-        jvmTest.dependencies {
+        androidUnitTest.dependencies {
             implementation(dependencyNotation = libs.bundles.jvm.test)
         }
     }
 }
 
 // The `Test` type is only used for JVM tests.
-tasks.named<Test>("jvmTest") {
+tasks.withType<Test>().configureEach {
     useJUnitPlatform()
     finalizedBy(tasks.named("jacocoTestReport"))
     reports {
