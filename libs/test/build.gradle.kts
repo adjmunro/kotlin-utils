@@ -9,8 +9,8 @@ plugins {
 }
 
 data class ProjectInfo(
+    val artifactId: String,
     val groupId: String = libs.versions.project.group.id.get(),
-    val artifactId: String = libs.versions.project.artifact.id.get(),
     val moduleId: String? = null,
     val major: String = libs.versions.project.version.major.get(),
     val minor: String = libs.versions.project.version.minor.get(),
@@ -31,7 +31,7 @@ data class ProjectInfo(
     }
 }
 
-val info = ProjectInfo(moduleId = "test")
+val info = ProjectInfo(artifactId = "util", moduleId = "test")
 group = info.groupId
 version = info.semanticVersion
 
@@ -93,7 +93,7 @@ kotlin {
                 libs.kotlin.bom
             })
             implementation(dependencyNotation = libs.bundles.common)
-            api(dependencyNotation = projects.utils)
+            api(dependencyNotation = projects.inline)
 
             compileOnly(dependencyNotation = libs.jetbrains.coroutines.test)
             compileOnly(dependencyNotation = libs.koin.test)
