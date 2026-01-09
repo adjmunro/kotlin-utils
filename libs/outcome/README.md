@@ -6,7 +6,7 @@ The goal of this library (besides satisfying my own curiosity & requirements) is
 ---
 TL;DR: idiomatic kotlin; `sealed` & `inline`; `<Error: Any>`; short-circuit via `throw`; definitely not-null; easy `fetch`.
 
-- All my `Outcome` types are backed by a `RasieScope`, which means you can *short-circuit* the scope, by *throwing `Any` error type!*.
+- All my `Outcome` types are backed by a `RaiseScope`, which means you can *short-circuit* the scope, by *throwing `Any` error type!*.
     - Disclaimer: `RaiseScope` was heavily influenced by ArrowKt, as well as blogposts which I can only imagine were also written by their team. I tried to work out how to short-circuit myself, but it just turned out pretty much the same. (Please don't sue me. LMK if I need to sort out the licenses better, but raise and the inline hacks should be the only extremely similar parts -- I even think my implementation makes it a bit easier to understand the logic flow, that bind() stuff and the parameter order swapping when injecting the scope was confusing AF!)
     - To reiterate, `RaiseScope` allows you to `throw` generic type `<Error: Any>`, not just `Throwable`.
 - `Outcome` is a `sealed interfaces` with `value class` children, providing a lightweight wrapper *and* exhaustive states.

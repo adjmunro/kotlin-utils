@@ -9,7 +9,7 @@ import kotlin.contracts.contract
  * Determines if a [Throwable] should be fatal.
  *
  * ***Note:** [TimeoutCancellationException] unfortunately extends [CancellationException]
- * (used by Kotlin's structured concurrency) and is thus also be considered fatal.*
+ * (used by Kotlin's structured concurrency) and is thus also considered fatal.*
  */
 public fun Throwable.isFatal(): Boolean {
     contract {

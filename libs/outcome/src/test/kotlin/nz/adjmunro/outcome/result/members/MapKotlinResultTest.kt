@@ -26,7 +26,7 @@ internal class MapKotlinResultTest {
         val result = KotlinResult.failure<Int>(exception = ex)
 
         // When: mapFailure is called
-        val mapped = result.mapFailure { IllegalArgumentException( "mapped") }
+        val mapped = result.mapFailure { IllegalArgumentException("mapped") }
 
         // Then: the exception should be transformed
         mapped.exceptionOrNull().shouldBeInstanceOf<IllegalArgumentException>()
