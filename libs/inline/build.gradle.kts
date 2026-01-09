@@ -9,8 +9,8 @@ plugins {
 }
 
 data class ProjectInfo(
+    val artifactId: String,
     val groupId: String = libs.versions.project.group.id.get(),
-    val artifactId: String = libs.versions.project.artifact.id.get(),
     val moduleId: String? = null,
     val major: String = libs.versions.project.version.major.get(),
     val minor: String = libs.versions.project.version.minor.get(),
@@ -31,7 +31,7 @@ data class ProjectInfo(
     }
 }
 
-val info = ProjectInfo()
+val info = ProjectInfo(artifactId = "utils")
 group = info.groupId
 version = info.semanticVersion
 
