@@ -4,11 +4,19 @@ on:
   workflow_dispatch: # Manual dispatch from the Actions tab in GitHub.
   workflow_call: # Allows this workflow to be called from other workflows.
 
+permissions:
+  packages: read   # ⬅️ Required for Gradle to fetch from GitHub Packages
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env: # Expose secrets to Gradle
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Java and Gradle
         uses: ./.github/actions/setup-gradle

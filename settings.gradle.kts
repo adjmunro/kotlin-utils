@@ -1,4 +1,30 @@
-rootProject.name = "utils"
+rootProject.name = "kotlin-utils"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+arrayOf(
+    "outcome",
+    "inline",
+    "test",
+).forEach { name: String ->
+    include(":$name")
+    project(":$name").projectDir = file(path = "libs/$name")
+}
+
+fun getProperty(gradlePropertiesName: String, systemEnvName: String, instructions: String): String {
+    val result = providers.gradleProperty(gradlePropertiesName).orNull
+        ?.removeSurrounding(delimiter = "\"")
+        ?: System.getenv(systemEnvName)
+
+    return requireNotNull(value = result) {
+        """
+        Required property not found! Expected:
+        - Local: `$gradlePropertiesName` in `~/.gradle/gradle.properties`
+        - CI: exported environment variable `$systemEnvName`
+        $instructions
+        """.trimIndent()
+    }
+}
 
 pluginManagement {
     /**
@@ -20,6 +46,7 @@ pluginManagement {
 
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 
     /**
      * The `dependencyResolutionManagement.repositories` block is where you configure the source
@@ -29,10 +56,27 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
         google()
+
+        val githubActor = getProperty(
+            gradlePropertiesName = "gpr.user",
+            systemEnvName = "GITHUB_ACTOR",
+            instructions = " Please set it to your GitHub username.",
+        )
+
+        val githubToken = getProperty(
+            gradlePropertiesName = "gpr.token",
+            systemEnvName = "GITHUB_TOKEN",
+            instructions = "Please set it to a valid GitHub token with `read:packages` permission."
+        )
+
+        listOf("adjmunro/project-utils").forEach { repository ->
+            maven {
+                url = uri("https://maven.pkg.github.com/$repository")
+                credentials {
+                    username = githubActor
+                    password = githubToken
+                }
+            }
+        }
     }
-
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
 }
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-include(":test")
