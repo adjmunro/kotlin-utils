@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package nz.adjmunro.util.test.bdd
+package nz.adjmunro.bdd
 
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -27,7 +27,7 @@ public value class Given<Fixture>(public val fixture: Fixture) {
 
     /**
      * A BDD-style context runner that take the [Given][nz.adjmunro.util.test.bdd.Given] fixture,
-     * and transforms it into a [When][nz.adjmunro.util.test.bdd.When] context.
+     * and transforms it into a [When][nz.adjmunro.bdd.When] context.
      *
      * > *This function is for triggering some test action and producing a result.*
      *
@@ -35,7 +35,7 @@ public value class Given<Fixture>(public val fixture: Fixture) {
      * @param Result The type of the result produced by the [block].
      * @param fixture The fixture to be used in the test.
      * @param block A lambda that uses the [Given] receiver to trigger some test action, and yield a result.
-     * @return A [When][nz.adjmunro.util.test.bdd.When] instance containing the [fixture][nz.adjmunro.util.test.bdd.When.fixture] and [result][nz.adjmunro.util.test.bdd.When.result].
+     * @return A [When][nz.adjmunro.bdd.When] instance containing the [fixture][nz.adjmunro.bdd.When.fixture] and [result][nz.adjmunro.bdd.When.result].
      */
     @BehaviourDrivenDevelopmentDsl
     public inline infix fun <Result> When(

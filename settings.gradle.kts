@@ -3,6 +3,7 @@ rootProject.name = "kotlin-utils"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 arrayOf(
+    "bdd",
     "outcome",
     "inline",
     "test",

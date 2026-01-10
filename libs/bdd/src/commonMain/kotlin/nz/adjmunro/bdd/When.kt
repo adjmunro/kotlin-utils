@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package nz.adjmunro.util.test.bdd
+package nz.adjmunro.bdd
 
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

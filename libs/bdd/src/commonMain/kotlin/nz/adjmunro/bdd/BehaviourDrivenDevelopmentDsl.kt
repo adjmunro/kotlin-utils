@@ -1,4 +1,4 @@
-package nz.adjmunro.util.test.bdd
+package nz.adjmunro.bdd
 
 /**
  * An annotation marking members of the [BehaviourDrivenDevelopmentDsl] library.
