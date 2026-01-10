@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias { libs.plugins.kotlin.multiplatform }
-    alias { libs.plugins.android.library } apply true
+//    alias { libs.plugins.android.multiplatform.library }
+    alias { libs.plugins.android.library }
     alias { libs.plugins.dokka }
     `maven-publish`
     jacoco
@@ -100,7 +101,7 @@ kotlin {
             })
             implementation(dependencyNotation = libs.bundles.common)
 
-            compileOnly(dependencyNotation = libs.koin.core)
+//            compileOnly(dependencyNotation = libs.koin.core)
             compileOnly(dependencyNotation = libs.jetbrains.multiplatform.lifecycle.viewmodel)
         }
         commonTest.dependencies {
@@ -117,7 +118,7 @@ kotlin {
                 compileOnly(dependencyNotation = libs.androidx.annotation)
                 compileOnly(dependencyNotation = libs.androidx.core.ktx)
                 compileOnly(dependencyNotation = libs.androidx.viewbinding)
-                compileOnly(dependencyNotation = libs.koin.android)
+//                compileOnly(dependencyNotation = libs.koin.android)
                 compileOnly(dependencyNotation = libs.timber)
             }
         }

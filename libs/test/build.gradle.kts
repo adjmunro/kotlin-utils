@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias { libs.plugins.kotlin.multiplatform }
+    //    alias { libs.plugins.android.multiplatform.library }
     alias { libs.plugins.android.library }
     alias { libs.plugins.dokka }
     `maven-publish`
@@ -96,7 +97,7 @@ kotlin {
             api(dependencyNotation = projects.inline)
 
             compileOnly(dependencyNotation = libs.jetbrains.coroutines.test)
-            compileOnly(dependencyNotation = libs.koin.test)
+//            compileOnly(dependencyNotation = libs.koin.test)
             compileOnly(dependencyNotation = libs.kotlin.test)
         }
         commonTest.dependencies {
@@ -113,8 +114,8 @@ kotlin {
                 compileOnly(dependencyNotation = libs.androidx.viewbinding)
                 compileOnly(dependencyNotation = libs.junit4)
                 compileOnly(dependencyNotation = libs.junit5)
-                compileOnly(dependencyNotation = libs.koin.android)
-                compileOnly(dependencyNotation = libs.koin.test)
+//                compileOnly(dependencyNotation = libs.koin.android)
+//                compileOnly(dependencyNotation = libs.koin.test)
                 compileOnly(dependencyNotation = libs.mockk)
                 compileOnly(dependencyNotation = libs.timber)
             }
