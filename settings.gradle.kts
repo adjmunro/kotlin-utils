@@ -6,6 +6,7 @@ arrayOf(
     "outcome",
     "inline",
     "test",
+    "tuple",
 ).forEach { name: String ->
     include(":$name")
     project(":$name").projectDir = file(path = "libs/$name")
